@@ -118,7 +118,7 @@ class Particle {
 class Uranium235 extends Particle {
     constructor(x, y, v_x, v_y) {
         super(20, x, y, v_x, v_y, "#2ec52b", 235)
-    }
+    } 
 }
 
 class Uranium236 extends Particle {
@@ -208,9 +208,11 @@ function sym(v) {
     return 1
 }
 
-function Nuclear1(U) {
+function Nuclear1(U, n) {
     destroyFromRenderList(U)
+    destroyFromRenderList(n)
     createRenderObject(new Uranium236(U.x, U.y, U.vel.x, U.vel.y))
+
 }
 
 function Nuclear2(U) {
@@ -224,10 +226,10 @@ function Nuclear2(U) {
 
 function Crash(A, B) {
     if (A instanceof Neutron && B instanceof Uranium235) {
-        Nuclear1(B)
+        Nuclear1(B, A)
     }
     else if (A instanceof Uranium235 && B instanceof Neutron) {
-        Nuclear1(A)
+        Nuclear1(A, B)
     }
 }
 
@@ -287,7 +289,8 @@ function renderEffect() {
 }
 
 const renderList = [
-    new Neutron(0, 0, 1, 1),
+    new Neutron(0, 0, 2, 2),
+    new Neutron(C_width, C_height, -2, -1),
 ]
 for (var i = 0; i < 5; i++) {
     for (var j = 0; j < 5; j++) {
